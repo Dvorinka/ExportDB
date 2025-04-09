@@ -11,8 +11,8 @@
       --bg-primary: #070b16;
       --bg-secondary: #0d1526;
       --accent-primary: #7928ca;
-      --accent-secondary: #4361ee;
-      --accent-tertiary: #6f6f6f;
+      --accent-secondary: #00a2ff32;
+      --accent-tertiary: #00d4ff33;
       --text-primary: #f0f2f5;
       --text-secondary: #9ca3af;
       --border-radius: 10px;
@@ -139,7 +139,7 @@
       width: 300px;
       height: 300px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(121, 40, 202, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+      background: radial-gradient(circle, rgb(32 87 143 / 16%) 0%, rgb(0 0 0 / 0%) 70%);
       z-index: -1;
       animation: pulse 8s infinite ease-in-out;
     }
@@ -150,7 +150,7 @@
     .glow-2 {
       bottom: -150px;
       left: -100px;
-      background: radial-gradient(circle, rgba(67, 97, 238, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+      background: radial-gradient(circle, rgb(67 145 238 / 6%) 0%, rgba(0, 0, 0, 0) 70%);
       animation-delay: -4s;
     }
     .card {
@@ -165,17 +165,6 @@
       position: relative;
       overflow: hidden;
       animation: fadeIn 0.6s ease-out;
-    }
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
-      background-size: 200% auto;
-      animation: gradientFlow 3s infinite linear;
     }
     h1 {
       font-size: 32px;
@@ -268,68 +257,76 @@
       display: flex;
       gap: 16px;
     }
-    .button-glow {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(121, 40, 202, 0.4) 0%, rgba(0, 0, 0, 0) 70%);
-      opacity: 0;
-      transition: opacity 0.3s;
-      z-index: -1;
-      border-radius: var(--border-radius);
-    }
-    .button-wrapper:hover .button-glow {
-      opacity: 1;
-    }
-    button {
-      background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
-      background-size: 200% auto;
-      animation: gradientFlow 3s infinite linear;
-      color: white;
-      border: none;
-      padding: 16px 28px;
-      font-size: 16px;
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      box-shadow: 0 6px 20px rgba(121, 40, 202, 0.25);
-      width: 100%;
-      letter-spacing: 0.5px;
-      position: relative;
-      overflow: hidden;
-    }
-    button::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0) 80%);
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
-    button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(121, 40, 202, 0.35);
-    }
-    button:hover::after {
-      opacity: 1;
-    }
-    button:active {
-      transform: translateY(-1px);
-    }
-    button ion-icon {
-      font-size: 22px;
-    }
+    .button-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  width: 100%;
+  max-width: 100%;
+  padding: 1rem 1.5rem;
+
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+
+  color: #ffffff;
+  background: rgba(0, 162, 255, 0.1);
+  border: 2px solid #00a2ff1a;
+  border-radius: var(--border-radius, 12px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  box-shadow: 0 0px 49px rgba(0, 162, 255, 0.2);
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+button:hover::before {
+  opacity: 1;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0px 46px rgb(0 0 0 / 18%);
+}
+
+button:active {
+  transform: translateY(-1px);
+}
+
+button ion-icon {
+  font-size: 20px;
+  z-index: 1;
+}
+
+button span {
+  z-index: 1;
+  position: relative;
+  white-space: nowrap;
+}
+
     .output-area {
       margin-top: 40px;
       position: relative;
@@ -360,7 +357,7 @@
       white-space: pre-wrap;
       color: var(--text-primary);
       width: 100%;
-      max-height: 400px;
+      max-height: 296px;
       overflow-y: auto;
       word-break: break-word;
       position: relative;
@@ -419,7 +416,7 @@
     }
     .footer {
       margin-top: auto;
-      padding: 24px;
+      padding: 0;
       text-align: center;
       color: var(--text-secondary);
       font-size: 14px;
@@ -523,6 +520,56 @@
         flex-wrap: wrap;
       }
     }
+
+    #downloadButton{
+      position: relative;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    color: #ffffff;
+    background: radial-gradient(circle, #00d4ff00 0%, transparent 60%);
+    border: 2px solid #00a2ff1a;
+    border-radius: var(--border-radius, 12px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    box-shadow: 0 0px 46px rgb(0 0 0 / 18%);
+}
+
+#copyButton{
+      position: relative;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    color: #ffffff;
+    background: radial-gradient(circle, #00d4ff00 0%, transparent 60%);
+    border: 2px solid #00a2ff1a;
+    border-radius: var(--border-radius, 12px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    box-shadow: 0 0px 46px rgb(0 0 0 / 18%);
+}
   </style>
 </head>
 <body>
@@ -530,11 +577,11 @@
   <div class="grid-overlay"></div>
   <div class="floating-shape shape-1"></div>
   <div class="floating-shape shape-2"></div>
-  <header>
+  <!-- <header>
     <div class="container">
       <img src="images/logo_wide_darkmode.png" width="160px" alt="Logo">
     </div>
-  </header>
+  </header> -->
   <div class="container">
     <div class="card">
       <div class="corner corner-tl"></div>
@@ -543,48 +590,47 @@
       <div class="corner corner-br"></div>
       <div class="glow glow-1"></div>
       <div class="glow glow-2"></div>
-      <h1>Excel to Text Converter</h1>
       <div class="upload-area">
         <div class="file-input-wrapper">
           <input type="file" id="fileInput" accept=".xlsx,.xls">
           <label for="fileInput" class="file-label">
             <ion-icon name="cloud-upload-outline"></ion-icon>
-            <span id="fileNameDisplay">Choose Excel file or drag & drop</span>
+            <span id="fileNameDisplay">Vyberte Excel soubor nebo přetáhněte</span>
           </label>
         </div>
         <div class="button-wrapper">
           <div class="button-glow"></div>
           <button onclick="uploadFile()">
             <ion-icon name="arrow-forward-circle-outline"></ion-icon>
-            Convert File
+            Konvertovat soubor
           </button>
         </div>
       </div>
       <div class="output-area">
-        <h2><ion-icon name="code-outline"></ion-icon> Output</h2>
+        <h2><ion-icon name="code-outline"></ion-icon> Výsledek</h2>
         <div id="outputContainer">
           <div class="output-empty" id="emptyState">
             <ion-icon name="document-text-outline"></ion-icon>
-            <p>Your converted text will appear here</p>
+            <p>Váš text se zobrazí zde.</p>
           </div>
           <pre id="output" style="display: none;"></pre>
-          <button id="copyButton" style="display: none; margin: 20px 0px;" onclick="copyOutput()">Copy Output</button>
-          <button id="downloadButton" style="display: none;" onclick="downloadOutput()">Download as .txt</button>
+          <button id="copyButton" style="display: none; margin: 20px 0px;" onclick="copyOutput()">Zkopírovat text</button>
+          <button id="downloadButton" style="display: none;" onclick="downloadOutput()">Stáhnout jako .txt</button>
         </div>
       </div>
     </div>
   </div>
   <footer class="footer">
-    <div class="container">
-      <p>© 2025 ExportDB | Powered by TDvorak</p>
+    <div class="container" style="padding: 21px;">
+      <p>© 2025 ExportDB | Powered by <a href="https://www.tdvorak.dev/ target="_blank" style="text-decoration: none; font-weight:bold; color: #9ca3af;"">TDvorak.dev</a></p>
       <div class="tech-badges">
         <div class="tech-badge">
-          <ion-icon name="logo-javascript"></ion-icon>
-          <span>JavaScript</span>
+          <ion-icon name="logo-html5"></ion-icon>
+          <a href="https://github.com/Dvorinka/ExportDB" target="_blank" style="text-decoration: none; color: #9ca3af;"><span>HTML5, CSS, JavaScript</span></a>
         </div>
         <div class="tech-badge">
           <ion-icon name="logo-docker"></ion-icon>
-          <span>GoLang - Railway</span>
+          <a href="https://github.com/Dvorinka/SkolaExDB_rail" target="_blank" style="text-decoration: none; color: #9ca3af;"><span>GoLang - Railway</span></a>
         </div>
         <div class="tech-badge">
           <ion-icon name="logo-octocat"></ion-icon>
@@ -623,7 +669,7 @@
     window.addEventListener('load', createParticles);
     // Update file name display when a file is selected
     document.getElementById('fileInput').addEventListener('change', function(e) {
-      const fileName = e.target.files[0] ? e.target.files[0].name : 'Vyberte soubor nebo přetáhněte';
+      const fileName = e.target.files[0] ? e.target.files[0].name : 'Vyberte Excel soubor nebo přetáhněte';
       document.getElementById('fileNameDisplay').textContent = fileName;
     });
     // Add drag & drop functionality
