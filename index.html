@@ -54,6 +54,11 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+    @keyframes glowing {
+      0% { box-shadow: 0 0 5px rgba(0, 162, 255, 0.5); }
+      50% { box-shadow: 0 0 20px rgba(0, 162, 255, 0.8); }
+      100% { box-shadow: 0 0 5px rgba(0, 162, 255, 0.5); }
+    }
     * {
       margin: 0;
       padding: 0;
@@ -257,76 +262,60 @@
       display: flex;
       gap: 16px;
     }
-    .button-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-
-  width: 100%;
-  max-width: 100%;
-  padding: 1rem 1.5rem;
-
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.4px;
-
-  color: #ffffff;
-  background: rgba(0, 162, 255, 0.1);
-  border: 2px solid #00a2ff1a;
-  border-radius: var(--border-radius, 12px);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  overflow: hidden;
-  box-shadow: 0 0px 49px rgba(0, 162, 255, 0.2);
-}
-
-button::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 0;
-}
-
-button:hover::before {
-  opacity: 1;
-}
-
-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0px 46px rgb(0 0 0 / 18%);
-}
-
-button:active {
-  transform: translateY(-1px);
-}
-
-button ion-icon {
-  font-size: 20px;
-  z-index: 1;
-}
-
-button span {
-  z-index: 1;
-  position: relative;
-  white-space: nowrap;
-}
-
+    button {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 100%;
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      color: #ffffff;
+      background: rgba(0, 162, 255, 0.1);
+      border: 2px solid #00a2ff1a;
+      border-radius: var(--border-radius, 12px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      overflow: hidden;
+      box-shadow: 0 0px 49px rgba(0, 162, 255, 0.2);
+    }
+    button::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 0;
+    }
+    button:hover::before {
+      opacity: 1;
+    }
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0px 46px rgb(0 0 0 / 18%);
+    }
+    button:active {
+      transform: translateY(-1px);
+    }
+    button ion-icon {
+      font-size: 20px;
+      z-index: 1;
+    }
+    button span {
+      z-index: 1;
+      position: relative;
+      white-space: nowrap;
+    }
     .output-area {
       margin-top: 40px;
       position: relative;
@@ -501,6 +490,161 @@ button span {
       border-radius: 68% 32% 39% 61% / 63% 38% 62% 37%;
       animation: float 20s infinite ease-in-out reverse;
     }
+    /* AI Status Monitor Styling */
+    .ai-status-card {
+      background-color: rgba(13, 21, 38, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: var(--border-radius);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      margin: 20px auto 0px auto;
+      max-width: 655px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 0.6s ease-out;
+    }
+    .ai-status-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .ai-status-header h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .ai-status-header ion-icon {
+      font-size: 20px;
+      color: var(--accent-secondary);
+    }
+    .ai-status-iframe {
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      background-color: rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    .ai-status-iframe:hover {
+      box-shadow: 0 0 15px rgba(0, 162, 255, 0.3);
+    }
+    .ai-status-corner {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      border-width: 2px;
+      border-color: var(--accent-secondary);
+      opacity: 0.8;
+    }
+    .ai-corner-tl {
+      top: 5px;
+      left: 5px;
+      border-top: 2px solid;
+      border-left: 2px solid;
+    }
+    .ai-corner-tr {
+      top: 5px;
+      right: 5px;
+      border-top: 2px solid;
+      border-right: 2px solid;
+    }
+    .ai-corner-bl {
+      bottom: 5px;
+      left: 5px;
+      border-bottom: 2px solid;
+      border-left: 2px solid;
+    }
+    .ai-corner-br {
+      bottom: 5px;
+      right: 5px;
+      border-bottom: 2px solid;
+      border-right: 2px solid;
+    }
+    .pulse-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: #4ade80;
+      border-radius: 50%;
+      margin-right: 8px;
+      position: relative;
+    }
+    .pulse-dot::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #4ade80;
+      border-radius: 50%;
+      animation: pulse-animation 2s infinite;
+      top: 0;
+      left: 0;
+    }
+    @keyframes pulse-animation {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      70% {
+        transform: scale(2);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+    #downloadButton {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 100%;
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      color: #ffffff;
+      background: radial-gradient(circle, #00d4ff00 0%, transparent 60%);
+      border: 2px solid #00a2ff1a;
+      border-radius: var(--border-radius, 12px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      overflow: hidden;
+      box-shadow: 0 0px 46px rgb(0 0 0 / 18%);
+    }
+    #copyButton {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 100%;
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      color: #ffffff;
+      background: radial-gradient(circle, #00d4ff00 0%, transparent 60%);
+      border: 2px solid #00a2ff1a;
+      border-radius: var(--border-radius, 12px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      overflow: hidden;
+      box-shadow: 0 0px 46px rgb(0 0 0 / 18%);
+    }
     /* Responsive adjustments */
     @media (max-width: 768px) {
       .container {
@@ -519,57 +663,47 @@ button span {
       .tech-badges {
         flex-wrap: wrap;
       }
+      .ai-status-card {
+        padding: 12px;
+      }
     }
-
-    #downloadButton{
-      position: relative;
-    display: flex
-;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    max-width: 100%;
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.4px;
-    color: #ffffff;
-    background: radial-gradient(circle, #00d4ff00 0%, transparent 60%);
-    border: 2px solid #00a2ff1a;
-    border-radius: var(--border-radius, 12px);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    overflow: hidden;
-    box-shadow: 0 0px 46px rgb(0 0 0 / 18%);
-}
-
-#copyButton{
-      position: relative;
-    display: flex
-;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    max-width: 100%;
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.4px;
-    color: #ffffff;
-    background: radial-gradient(circle, #00d4ff00 0%, transparent 60%);
-    border: 2px solid #00a2ff1a;
-    border-radius: var(--border-radius, 12px);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    overflow: hidden;
-    box-shadow: 0 0px 46px rgb(0 0 0 / 18%);
-}
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-5px); }
+      40%, 80% { transform: translateX(5px); }
+    }
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(13, 21, 38, 0.9);
+      backdrop-filter: blur(10px);
+      border-left: 4px solid #e74c3c;
+      padding: 12px 16px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      animation: fadeIn 0.3s ease-out;
+      color: var(--text-primary);
+    }
+    .notification.success {
+      border-left-color: var(--accent-secondary);
+    }
+    .notification ion-icon {
+      font-size: 20px;
+      color: #e74c3c;
+    }
+    .notification.success ion-icon {
+      color: var(--accent-secondary);
+    }
+    .notification-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
   </style>
 </head>
 <body>
@@ -617,6 +751,14 @@ button span {
           <button id="copyButton" style="display: none; margin: 20px 0px;" onclick="copyOutput()">Zkopírovat text</button>
           <button id="downloadButton" style="display: none;" onclick="downloadOutput()">Stáhnout jako .txt</button>
         </div>
+      </div>
+      <div class="ai-status-card">
+        <div class="ai-status-header">
+          <div class="pulse-dot"></div>
+          <ion-icon name="analytics-outline"></ion-icon>
+          <h3>Aktuální status AI</h3>
+        </div>
+        <iframe class="ai-status-iframe" title="AI Status Monitor" src="https://us5.datadoghq.com/graph/embed?token=087f283223023d784c746bd0ef931dfd2ac3268f98823e1627ea89061f63eab6&amp;legend=true&amp;height=240&amp;width=100%" height="240"></iframe>
       </div>
     </div>
   </div>
